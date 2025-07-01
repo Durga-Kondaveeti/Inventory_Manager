@@ -1,6 +1,6 @@
 // src/components/StockItemRow.tsx
-import { type StockItem } from "../types";
-import { getPriceIncGST, formatCurrency } from "../lib/inventoryUtils"; 
+import {type StockItem } from "../types";
+import { getPriceIncGST, formatCurrency } from "../lib/inventoryUtils";
 
 interface StockItemRowProps {
   item: StockItem;
@@ -14,9 +14,23 @@ export default function StockItemRow({ item, isAdmin, onEdit }: StockItemRowProp
   return (
     <div className="flex flex-col gap-4 p-5 transition-colors hover:bg-stone-50 sm:flex-row sm:items-center sm:justify-between">
       
-      {/* 1. Item Details */}
+      {/* 1. Item Details (Now includes Edit Button) */}
       <div>
-        <h4 className="text-lg font-bold text-stone-900">{item.itemName}</h4>
+        <div className="flex items-center gap-3">
+          <h4 className="text-lg font-bold text-stone-900">{item.itemName}</h4>
+          
+          {/* EDIT BUTTON MOVED HERE */}
+          <button 
+            onClick={() => onEdit(item)} 
+            className="rounded-full bg-stone-100 p-1.5 text-stone-400 hover:bg-orange-100 hover:text-orange-600 transition-colors"
+            title="Edit Item"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </button>
+        </div>
+
         <div className="mt-1 flex items-center gap-3 text-sm font-medium text-stone-500">
           <span className="flex items-center gap-1">
             <span className="h-2 w-2 rounded-full bg-stone-300"></span>
@@ -35,7 +49,7 @@ export default function StockItemRow({ item, isAdmin, onEdit }: StockItemRowProp
         </div>
       </div>
 
-      {/* 2. Stats & Actions */}
+      {/* 2. Stats (Removed Button from here) */}
       <div className="flex flex-wrap items-center justify-between gap-6 sm:justify-end">
         
         {/* Quantity */}
@@ -63,7 +77,7 @@ export default function StockItemRow({ item, isAdmin, onEdit }: StockItemRowProp
             </div>
           </div>
 
-          {/* Sell Inc. GST - LOGIC IS NOW HANDLED BY UTILS */}
+          {/* Sell Inc. GST */}
           <div className="text-right">
             <div className="text-xs font-bold uppercase text-stone-400">Sell (Inc. GST)</div>
             <div className="font-mono font-bold text-green-600">
@@ -71,16 +85,6 @@ export default function StockItemRow({ item, isAdmin, onEdit }: StockItemRowProp
             </div>
           </div>
         </div>
-
-        {/* Edit Action */}
-        <button 
-          onClick={() => onEdit(item)} 
-          className="rounded-full bg-stone-100 p-2 text-stone-400 hover:bg-stone-200 hover:text-stone-900"
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-          </svg>
-        </button>
       </div>
     </div>
   );

@@ -83,7 +83,7 @@ export default function Dashboard() {
         <div className="group rounded-3xl bg-white p-6 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)]">
           <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400">{isAdmin ? "Inventory Value (Cost)" : "Inventory Value (Retail)"}</h3>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-4xl font-black text-stone-900">{loading ? "..." : `$${(totalValue / 1000).toFixed(1)}k`}</span>
+            <span className="text-4xl font-black text-stone-900">{loading ? "..." : `${(totalValue / 1000).toFixed(1)}k`}</span>
             <span className="text-sm font-bold text-stone-400">INR</span>
           </div>
         </div>
