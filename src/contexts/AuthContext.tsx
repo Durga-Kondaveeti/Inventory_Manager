@@ -1,6 +1,6 @@
 // src/contexts/AuthContext.tsx
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { type User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
 // 1. Define what data this context provides
