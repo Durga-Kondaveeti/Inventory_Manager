@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Animations */
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base Styles for that "Creamy" feel */
+body {
+  background-color: #FDFBF7; /* Warm Cream */
+  color: #1C1917; /* Stone 900 (Soft Black) */
+}
