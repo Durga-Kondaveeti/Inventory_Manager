@@ -7,8 +7,14 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -16,6 +22,10 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       console.error(err);
+      setError("Failed to login. Check your email and password.");
+    }
+
+    setLoading(false);
   }
 
   return (
@@ -25,7 +35,11 @@ export default function Login() {
           Stock Manager
         </h2>
 
-        
+        {error && (
+          <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
@@ -52,10 +66,10 @@ export default function Login() {
 
           <button
             type="submit"
-
+            disabled={loading}
             className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
           >
-
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>
