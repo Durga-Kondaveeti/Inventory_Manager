@@ -14,6 +14,20 @@ export default function Dashboard() {
           </p>
         </div>
         
+        <button className="hidden rounded-2xl bg-stone-900 px-6 py-3 text-sm font-bold text-white shadow-xl transition-transform hover:scale-105 active:scale-95 sm:block">
+          + Add New Item
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="group rounded-3xl bg-white p-6 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)]">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400">Total Stock</h3>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="text-4xl font-black text-stone-900">1,240</span>
+            <span className="text-sm font-bold text-green-500">Units</span>
+          </div>
+        </div>
+
         {/* Card 2 */}
         <div className="group rounded-3xl bg-white p-6 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)]">
           <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400">Total Value</h3>
@@ -23,7 +37,13 @@ export default function Dashboard() {
           </div>
         </div>
 
-
+        <div className="group rounded-3xl bg-orange-50 p-6 shadow-[0_10px_30px_-10px_rgba(249,115,22,0.1)] transition-all hover:shadow-[0_20px_40px_-10px_rgba(249,115,22,0.2)]">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-orange-600">Low Stock Alert</h3>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="text-4xl font-black text-orange-600">3</span>
+            <span className="text-sm font-bold text-orange-400">Items</span>
+          </div>
+        </div>
       </div>
 
       <div className="mt-10">
