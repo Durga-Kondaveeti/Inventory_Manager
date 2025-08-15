@@ -1,18 +1,29 @@
+export type UserRole = 'admin' | 'user';
 
 export interface UserProfile {
-  uid: string;         
+  uid: string;
   email: string;
-  role: 'admin' | 'user'; 
+  role: UserRole;
   name?: string;
 }
 
 export interface StockItem {
-  id?: string;             
-  itemName: string;        
-  sku?: string;            
-  purchasePrice: number;   
-  sellingPrice: number;    
-  quantity: number;        
-  location: string;        
-  lastUpdated: Date;       
+  id?: string;
+  
+  // 1. Hierarchy
+  category: string;      
+  type: string;        
+  itemName: string;      
+  
+  // 2. Inventory Data
+  quantity: number;
+  location: string;      
+  
+  purchasePrice: number; 
+  sellingPrice: number;  
+  
+  lastUpdated: any;     
 }
+
+export const canViewFinancials = (role: UserRole) => role === 'admin';
+export const canDeleteItems = (role: UserRole) => role === 'admin';
