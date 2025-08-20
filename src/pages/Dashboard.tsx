@@ -1,9 +1,21 @@
-// src/pages/Dashboard.tsx
+import { useState, useEffect } from "react"; // Added imports
 import Layout from "../components/Layout";
+import { useAuth } from "../contexts/AuthContext"; // Added import
+import AddItemModal from "../components/AddItemModal"; // Added import
 
 export default function Dashboard() {
+  const { isAdmin } = useAuth(); // Check role
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+
+  // Placeholder refresh function
+  const handleRefresh = () => {
+    console.log("Item added! We will reload data in the next phase.");
+    // In Phase 9, this will actually re-fetch the table data
+  };
+
   return (
     <Layout>
+      {/* 1. Page Title Section */}
       <div className="mb-8 mt-2 flex items-end justify-between">
         <div>
           <h1 className="text-3xl font-black tracking-tighter text-stone-900 sm:text-4xl">
@@ -14,9 +26,15 @@ export default function Dashboard() {
           </p>
         </div>
         
-        <button className="hidden rounded-2xl bg-stone-900 px-6 py-3 text-sm font-bold text-white shadow-xl transition-transform hover:scale-105 active:scale-95 sm:block">
-          + Add New Item
-        </button>
+        {/* ACTION BUTTON - ONLY FOR ADMINS */}
+        {isAdmin && (
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="rounded-2xl bg-stone-900 px-6 py-3 text-sm font-bold text-white shadow-xl transition-transform hover:scale-105 active:scale-95"
+          >
+            + Add New Item
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -64,6 +82,11 @@ export default function Dashboard() {
           <p className="text-xs text-stone-400">Import from Tally or add manually.</p>
         </div>
       </div>
+      <AddItemModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleRefresh}
+      />
     </Layout>
   );
 }
