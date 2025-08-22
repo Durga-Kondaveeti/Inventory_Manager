@@ -6,7 +6,7 @@ import AddItemModal from "../components/AddItemModal";
 import LowStockModal from "../components/LowStockModal"; // Import the new modal
 import StockList from "../components/StockList";
 import { getInventory } from "../lib/db";
-import { StockItem } from "../types";
+import { type StockItem } from "../types";
 
 export default function Dashboard() {
   const { isAdmin } = useAuth();

@@ -1,5 +1,5 @@
 // src/components/LowStockModal.tsx
-import { StockItem } from "../types";
+import { type StockItem } from "../types";
 
 interface LowStockModalProps {
   isOpen: boolean;
