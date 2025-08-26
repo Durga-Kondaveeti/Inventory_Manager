@@ -19,24 +19,33 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
     location: "",
     purchasePrice: 0,
     sellingPrice: 0,
-  });
+    gst: 0
+  }); 
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    
     try {
       await addStockItem({
         ...formData,
         quantity: Number(formData.quantity),
         purchasePrice: Number(formData.purchasePrice),
         sellingPrice: Number(formData.sellingPrice),
+        gst: Number(formData.gst)
       } as StockItem);
       
       setFormData({
-        category: "", type: "", itemName: "", quantity: 0, 
-        location: "", purchasePrice: 0, sellingPrice: 0
+        category: "",
+         type: "",
+          itemName: "",
+           quantity: 0, 
+        location: "",
+         purchasePrice: 0,
+          sellingPrice: 0,
+           gst: 0
       }); // Reset form
       onSuccess();
       onClose();
@@ -44,7 +53,10 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
       console.error("Error adding item:", error);
       alert("Failed to add item. Check console.");
     }
+
+    
     setLoading(false);
+
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -166,6 +178,21 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
                 </div>
               </div>
             </div>
+            {/* NEW GST FIELD */}
+                <div>
+                  <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">GST %</label>
+                  <div className="relative">
+                    <input
+                      name="gst"
+                      type="number"
+                      placeholder="18"
+                      required
+                      className="w-full rounded-xl bg-white px-4 py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 focus:ring-2 focus:ring-orange-500/20"
+                      onChange={handleChange}
+                    />
+                    <span className="absolute right-4 top-3.5 font-bold text-stone-400">%</span>
+                  </div>
+                </div>
 
           </div>
         </form>

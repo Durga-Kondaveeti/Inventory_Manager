@@ -21,7 +21,8 @@ export interface StockItem {
   
   purchasePrice: number; 
   sellingPrice: number;  
-  
+  gst: number
+
   lastUpdated: any;     
 }
 
