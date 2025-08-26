@@ -145,9 +145,10 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
             </div>
 
             {/* Section 3: Pricing */}
-            <div className="rounded-2xl bg-orange-50/50 p-6">
+,            <div className="rounded-2xl bg-orange-50/50 p-6">
               <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-orange-800">Financials</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3"> {/* Changed to 3 columns */}
+                
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Purchase Price</label>
                   <div className="relative">
@@ -162,6 +163,7 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
                     />
                   </div>
                 </div>
+
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Selling Price</label>
                   <div className="relative">
@@ -176,9 +178,8 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
                     />
                   </div>
                 </div>
-              </div>
-            </div>
-            {/* NEW GST FIELD */}
+
+                {/* NEW GST FIELD */}
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">GST %</label>
                   <div className="relative">
@@ -193,6 +194,9 @@ export default function AddItemModal({ isOpen, onClose, onSuccess }: AddItemModa
                     <span className="absolute right-4 top-3.5 font-bold text-stone-400">%</span>
                   </div>
                 </div>
+
+              </div>
+            </div>
 
           </div>
         </form>

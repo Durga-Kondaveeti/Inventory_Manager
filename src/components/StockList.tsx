@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 interface StockListProps {
   items: StockItem[];
-  onEdit: (item: StockItem) => void; // Added Prop
+  onEdit: (item: StockItem) => void;
 }
 
 export default function StockList({ items, onEdit }: StockListProps) {
@@ -41,7 +41,7 @@ export default function StockList({ items, onEdit }: StockListProps) {
                 <div className="divide-y divide-stone-100">
                   {stockItems.map((item) => (
                     <div key={item.id} className="flex flex-col gap-4 p-5 transition-colors hover:bg-stone-50 sm:flex-row sm:items-center sm:justify-between">
-                      {/* ... (Item Info section stays same) ... */}
+                      {/* Item Info */}
                       <div>
                         <h4 className="text-lg font-bold text-stone-900">{item.itemName}</h4>
                         <div className="mt-1 flex items-center gap-3 text-sm font-medium text-stone-500">
@@ -50,28 +50,46 @@ export default function StockList({ items, onEdit }: StockListProps) {
                             {item.location}
                           </span>
                           {item.quantity < 5 && <span className="text-orange-600 font-bold">Low Stock</span>}
+                          {/* GST Tag */}
+                          {item.gst > 0 && <span className="text-[10px] font-bold text-stone-400 bg-stone-100 px-1 rounded">{item.gst}% GST</span>}
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between gap-6 sm:justify-end">
+                      <div className="flex flex-wrap items-center justify-between gap-6 sm:justify-end">
+                        
+                        {/* Quantity */}
                         <div className="text-center">
                           <div className="text-xs font-bold uppercase text-stone-400">Qty</div>
                           <div className="text-xl font-black text-stone-900">{item.quantity}</div>
                         </div>
 
                         <div className="flex gap-6">
+                           {/* Buy Price (Admin Only) */}
                            {isAdmin && (
                             <div className="hidden text-right sm:block">
                               <div className="text-xs font-bold uppercase text-stone-400">Buy</div>
-                              <div className="font-mono font-bold text-stone-600">${item.purchasePrice.toFixed(2)}</div>
+                              <div className="font-mono font-bold text-stone-400">
+                                ${item.purchasePrice.toFixed(2)}
+                              </div>
                             </div>
                            )}
+
+                           {/* Sell Price (Excl. GST) */}
                           <div className="text-right">
-                            <div className="text-xs font-bold uppercase text-stone-400">Sell</div>
-                            <div className="font-mono font-bold text-green-600">${item.sellingPrice.toFixed(2)}</div>
+                            <div className="text-xs font-bold uppercase text-stone-400">Sell (Ex. GST)</div>
+                            <div className="font-mono font-bold text-stone-600">${item.sellingPrice.toFixed(2)}</div>
+                          </div>
+
+                           {/* Sell Price (Incl. GST) */}
+                          <div className="text-right">
+                            <div className="text-xs font-bold uppercase text-stone-400">Sell (Inc. GST)</div>
+                            <div className="font-mono font-bold text-green-600">
+                              ${(item.sellingPrice * (1 + (item.gst || 0) / 100)).toFixed(2)}
+                            </div>
                           </div>
                         </div>
 
+                        {/* Edit Button */}
                         <button 
                           onClick={() => onEdit(item)} 
                           className="rounded-full bg-stone-100 p-2 text-stone-400 hover:bg-stone-200 hover:text-stone-900"

@@ -29,6 +29,7 @@ export default function EditItemModal({ item, isOpen, onClose, onSuccess }: Edit
         location: item.location,
         purchasePrice: item.purchasePrice,
         sellingPrice: item.sellingPrice,
+        gst: item.gst || 0 
       });
     }
   }, [item]);
@@ -147,7 +148,7 @@ export default function EditItemModal({ item, isOpen, onClose, onSuccess }: Edit
             {/* 3. Pricing (Admin Full Access / User Read-Only Selling Price) */}
             <div className="rounded-2xl bg-orange-50/50 p-6">
               <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-orange-800">Financials</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 
                 {/* Purchase Price: ADMIN ONLY */}
                 {isAdmin && (
@@ -165,7 +166,6 @@ export default function EditItemModal({ item, isOpen, onClose, onSuccess }: Edit
                 )}
 
                 {/* Selling Price: Visible to all, but only Admin can Edit? */}
-                {/* Your prompt: "user can update... and see the selling price only" (implies read-only for User) */}
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Selling Price</label>
                   <input
@@ -174,10 +174,28 @@ export default function EditItemModal({ item, isOpen, onClose, onSuccess }: Edit
                     step="0.01"
                     value={formData.sellingPrice}
                     onChange={handleChange}
-                    disabled={!isAdmin} // Only Admin edits price
+                    disabled={!isAdmin}
                     className="w-full rounded-xl bg-white px-4 py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 disabled:opacity-60 disabled:cursor-not-allowed focus:ring-2 focus:ring-orange-500/20"
                   />
                 </div>
+
+                {/* GST Field */}
+                <div>
+                  <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">GST %</label>
+                  <div className="relative">
+                    <input
+                      name="gst"
+                      type="number"
+                      value={formData.gst}
+                      onChange={handleChange}
+                      // disabled={!isAdmin} // Admin Only
+                      className="w-full rounded-xl bg-white px-4 py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 disabled:opacity-60 disabled:cursor-not-allowed focus:ring-2 focus:ring-orange-500/20"
+                    />
+                    <span className="absolute right-4 top-3.5 font-bold text-stone-400">%</span>
+                  </div>
+                </div>
+
+             
               </div>
             </div>
           </div>
