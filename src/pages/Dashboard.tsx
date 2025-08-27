@@ -5,7 +5,7 @@ import AddItemModal from "../components/AddItemModal";
 import LowStockModal from "../components/LowStockModal";
 import EditItemModal from "../components/EditItemModal"; // IMPORTED
 import StockList from "../components/StockList";
-import { getInventory } from "../lib/db";
+import { subscribeToInventory } from "../lib/db";
 import { type StockItem } from "../types";
 
 export default function Dashboard() {
@@ -20,18 +20,21 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const fetchInventory = async () => {
+ useEffect(() => {
     setLoading(true);
-    try {
-      const data = await getInventory();
-      setInventory(data);
-    } catch (error) {
-      console.error("Failed to load inventory", error);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchInventory(); }, []);
+    
+    const unsubscribe = subscribeToInventory(
+      (data) => {
+        setInventory(data);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Sync Error:", error);
+        setLoading(false);
+      }
+    );
+    return () => unsubscribe();
+  }, []); 
 
   const totalStock = inventory.reduce((acc, item) => acc + item.quantity, 0);
   const totalValue = inventory.reduce((acc, item) => {
@@ -139,7 +142,7 @@ export default function Dashboard() {
      <AddItemModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)}
-        onSuccess={fetchInventory}
+        onSuccess={()=>{}}
         existingItems={inventory} 
       />
 
@@ -154,7 +157,7 @@ export default function Dashboard() {
         item={editingItem}
         isOpen={!!editingItem} 
         onClose={() => setEditingItem(null)}
-        onSuccess={fetchInventory}
+        onSuccess={()=>{}}
       />
     </Layout>
   );
