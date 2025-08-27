@@ -50,7 +50,6 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      {/* ... (Header, Stats, Search Bar - NO CHANGES) ... */}
       
       {/* 1. Header Section */}
       <div className="mb-8 mt-2 flex items-end justify-between">
@@ -137,10 +136,11 @@ export default function Dashboard() {
         </button>
       )}
 
-      <AddItemModal 
+     <AddItemModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)}
-        onSuccess={fetchInventory} 
+        onSuccess={fetchInventory}
+        existingItems={inventory} 
       />
 
       <LowStockModal
