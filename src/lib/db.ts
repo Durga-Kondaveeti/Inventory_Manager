@@ -1,4 +1,4 @@
-import { collection, addDoc, updateDoc, doc, deleteDoc, getDocs, query, orderBy, serverTimestamp,onSnapshot } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, deleteDoc, query, orderBy, serverTimestamp,onSnapshot } from "firebase/firestore";
 import { db } from "./firebase";
 import { type StockItem } from "../types";
 import { type FirestoreError } from "firebase/firestore";
