@@ -35,4 +35,4 @@ dist-ssr
 # Capacitor (Mobile) - Auto-generated builds
 android/app/build
 android/.gradle
-ios/App/App/public
+ios/App/App/public.env

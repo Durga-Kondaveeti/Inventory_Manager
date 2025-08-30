@@ -7,6 +7,7 @@ import EditItemModal from "../components/EditItemModal"; // IMPORTED
 import StockList from "../components/StockList";
 import { subscribeToInventory } from "../lib/db";
 import { type StockItem } from "../types";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 export default function Dashboard() {
   const { isAdmin } = useAuth();
@@ -121,14 +122,17 @@ export default function Dashboard() {
       </div>
 
       {/* 4. DATA LIST - PASS THE EDIT HANDLER */}
+      {/* 4. The Data List */}
       {loading ? (
-        <div className="flex h-32 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-stone-200 border-t-orange-500"></div>
+        // SHOW SKELETON INSTEAD OF SPINNER
+        <div className="mt-8 space-y-10">
+          <SkeletonLoader />
+          <SkeletonLoader />
         </div>
       ) : (
         <StockList 
           items={filteredItems} 
-          onEdit={(item) => setEditingItem(item)} 
+          onEdit={(item) => setEditingItem(item)}
         />
       )}
 
