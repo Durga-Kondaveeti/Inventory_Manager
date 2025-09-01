@@ -277,7 +277,7 @@ export default function AddItemModal({ isOpen, onClose, onSuccess, existingItems
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Purchase Price</label>
                   <div className="relative">
-                    <span className="absolute left-4 top-3.5 font-bold text-stone-400">$</span>
+                    <span className="absolute left-4 top-3.5 font-bold text-stone-400">₹</span>
                     <input
                       name="purchasePrice"
                       type="number"
@@ -292,7 +292,7 @@ export default function AddItemModal({ isOpen, onClose, onSuccess, existingItems
                 <div>
                   <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Selling Price</label>
                   <div className="relative">
-                    <span className="absolute left-4 top-3.5 font-bold text-stone-400">$</span>
+                    {/* <span className="absolute left-4 top-3.5 font-bold text-stone-400">₹</span> */}
                     <input
                       name="sellingPrice"
                       type="number"
