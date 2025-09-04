@@ -1,24 +1,33 @@
+// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-
-// const LoginPlaceholder = () => <div className="p-10"><h1>Login Page</h1></div>;
-// const DashboardPlaceholder = () => <div className="p-10"><h1>Dashboard</h1></div>;
+import AddItem from "./pages/AddItem.tsx"; // NEW IMPORT
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login/>} />
-
+          <Route path="/login" element={<Login />} />
+          
           <Route
             path="/"
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* NEW ROUTE */}
+          <Route
+            path="/add-item"
+            element={
+              <ProtectedRoute>
+                <AddItem />
               </ProtectedRoute>
             }
           />
