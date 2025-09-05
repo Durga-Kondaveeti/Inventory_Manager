@@ -4,7 +4,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import AddItem from "./pages/AddItem.tsx"; // NEW IMPORT
+import AddItem from "./pages/AddItem";
+import ItemDetails from "./pages/ItemDetails";
 
 function App() {
   return (
@@ -22,12 +23,20 @@ function App() {
             }
           />
 
-          {/* NEW ROUTE */}
           <Route
             path="/add-item"
             element={
               <ProtectedRoute>
                 <AddItem />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/item/:id"
+            element={
+              <ProtectedRoute>
+                <ItemDetails />
               </ProtectedRoute>
             }
           />

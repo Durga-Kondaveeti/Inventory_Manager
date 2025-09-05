@@ -1,11 +1,9 @@
 // src/pages/Dashboard.tsx
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // NEW IMPORT
+import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useAuth } from "../contexts/AuthContext";
 import LowStockModal from "../components/LowStockModal";
-import EditItemModal from "../components/EditItemModal";
-import ItemDetailsModal from "../components/ItemDetailsModal";
 import StockList from "../components/StockList";
 import SkeletonLoader from "../components/SkeletonLoader";
 import { subscribeToInventory } from "../lib/db";
@@ -13,11 +11,9 @@ import { type StockItem } from "../types";
 
 export default function Dashboard() {
   const { isAdmin } = useAuth();
-  const navigate = useNavigate(); // ADD NAVIGATE
+  const navigate = useNavigate();
   
   const [isLowStockModalOpen, setIsLowStockModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<StockItem | null>(null);
-  const [viewingItem, setViewingItem] = useState<StockItem | null>(null);
 
   const [inventory, setInventory] = useState<StockItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +95,7 @@ export default function Dashboard() {
           <h2 className="text-xl font-bold text-stone-900">Live Inventory</h2>
           {isAdmin && (
             <button 
-              onClick={() => navigate("/add-item")} // REDIRECTS TO PAGE
+              onClick={() => navigate("/add-item")}
               className="flex items-center gap-2 rounded-xl bg-stone-900 px-4 py-2 text-xs font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,37 +128,20 @@ export default function Dashboard() {
       ) : (
         <StockList 
           items={filteredItems} 
-          onViewDetails={(item) => setViewingItem(item)} 
+          onViewDetails={(item) => navigate(`/item/${item.id}`)} 
         />
       )}
 
-      {/* Mobile Add Button */}
       {isAdmin && (
         <button onClick={() => navigate("/add-item")} className="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-stone-900 text-white shadow-2xl sm:hidden">
            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
         </button>
       )}
 
-      {/* REMOVED AddItemModal component entirely */}
-
       <LowStockModal
         isOpen={isLowStockModalOpen}
         onClose={() => setIsLowStockModalOpen(false)}
         items={lowStockItems}
-      />
-
-      <ItemDetailsModal
-        item={viewingItem}
-        isOpen={!!viewingItem}
-        onClose={() => setViewingItem(null)}
-        onEdit={(item) => setEditingItem(item)} 
-      />
-
-      <EditItemModal
-        item={editingItem}
-        isOpen={!!editingItem}
-        onClose={() => setEditingItem(null)}
-        onSuccess={() => {}}
       />
     </Layout>
   );
