@@ -71,7 +71,8 @@ export default function AddItem() {
   const [newFields, setNewFields] = useState({ category: false, type: false, location: false });
 
   const [formData, setFormData] = useState({
-    category: "", type: "", itemName: "", quantity: 0, 
+    category: "", type: "", itemName: "", 
+    quantity: 0, unit: "count", minStock: 5, // <-- NEW FIELDS
     location: "", purchasePrice: 0, sellingPrice: 0, gst: 0,
   });
 
@@ -100,6 +101,7 @@ export default function AddItem() {
       await addStockItem({
         ...formData,
         quantity: Number(formData.quantity),
+        minStock: Number(formData.minStock), 
         purchasePrice: Number(formData.purchasePrice),
         sellingPrice: Number(formData.sellingPrice),
         gst: Number(formData.gst),
@@ -112,8 +114,15 @@ export default function AddItem() {
     setLoading(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    let { name, value } = e.target;
+    
+    // FIX: Intercept mobile keyboard double-space-to-period
+    if (typeof value === 'string' && value.endsWith('. ')) {
+      value = value.replace(/\.\s$/g, '  ');
+    }
+
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleDropdownChange = (fieldName: string, value: string) => {
@@ -198,10 +207,56 @@ export default function AddItem() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
+              {/* <div>
                 <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Quantity</label>
                 <input name="quantity" type="number" min="0" required className="w-full rounded-xl bg-white px-4 py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 focus:ring-2 focus:ring-orange-500/20" onChange={handleChange} />
+              </div> */}
+              {/* LOGISTICS ROW */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {/* Quantity + Unit */}
+              <div className="sm:col-span-2">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-400">Current Stock</label>
+                <div className="flex gap-2">
+                  <input
+                    name="quantity"
+                    type="number"
+                    min="0"
+                    required
+                    className="flex-1 rounded-xl bg-white px-4 py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 focus:ring-2 focus:ring-orange-500/20"
+                    onChange={handleChange}
+                  />
+                  <select
+                    name="unit"
+                    value={formData.unit}
+                    onChange={handleChange}
+                    className="w-28 rounded-xl bg-stone-50 px-4 py-3 font-bold text-stone-600 shadow-sm outline-none ring-1 ring-stone-100 focus:ring-2 focus:ring-orange-500/20"
+                  >
+                    <option value="count">Count</option>
+                    <option value="feet">Feet</option>
+                    <option value="ton">Ton</option>
+                  </select>
+                </div>
               </div>
+
+              {/* Minimum Stock Alert Target */}
+              <div>
+                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-orange-400">Low Stock Alert At</label>
+                <input
+                  name="minStock"
+                  type="number"
+                  min="0"
+                  value={formData.minStock}
+                  required
+                  className="w-full rounded-xl bg-orange-50 px-4 py-3 font-bold text-orange-900 shadow-sm outline-none ring-1 ring-orange-200 focus:ring-2 focus:ring-orange-500/20"
+                  onChange={handleChange}
+                />
+              </div>
+              
+              {/* Location (Keep your existing renderField call here) */}
+              <div className="sm:col-span-3">
+                 {renderField("Location", "location", uniqueLocations)}
+              </div>
+            </div>
               {renderField("Location", "location", uniqueLocations)}
             </div>
 
@@ -209,8 +264,8 @@ export default function AddItem() {
               <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-orange-800">Financial Data</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {[
-                  { label: "Purchase Price", name: "purchasePrice", prefix: "$" },
-                  { label: "Selling Price", name: "sellingPrice", prefix: "$" },
+                  { label: "Purchase Price", name: "purchasePrice", prefix: "Inr" },
+                  { label: "Selling Price", name: "sellingPrice", prefix: "Inr" },
                   { label: "GST Tax", name: "gst", prefix: "%" }
                 ].map((field) => (
                   <div key={field.name}>

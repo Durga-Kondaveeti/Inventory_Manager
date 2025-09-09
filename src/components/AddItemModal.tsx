@@ -209,8 +209,8 @@ export default function AddItem() {
               <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-orange-800">Financial Data</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {[
-                  { label: "Purchase Price", name: "purchasePrice", prefix: "$" },
-                  { label: "Selling Price", name: "sellingPrice", prefix: "$" },
+                  { label: "Purchase Price", name: "purchasePrice", prefix: "Inr" },
+                  { label: "Selling Price", name: "sellingPrice", prefix: "Inr" },
                   { label: "GST Tax", name: "gst", prefix: "%" }
                 ].map((field) => (
                   <div key={field.name}>

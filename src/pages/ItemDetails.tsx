@@ -76,7 +76,7 @@ export default function ItemDetails() {
           <div className="text-right">
             <div className="text-[10px] font-bold uppercase tracking-wider text-stone-400">Current Stock</div>
             <div className="text-4xl font-black text-stone-900">{item.quantity}</div>
-            {item.quantity < 5 && (
+            {item.quantity <= (item.minStock ?? 5) && (
               <span className="mt-2 inline-block rounded-full bg-orange-100 px-3 py-1 text-xs font-black uppercase tracking-wider text-orange-600">
                 Low Stock
               </span>

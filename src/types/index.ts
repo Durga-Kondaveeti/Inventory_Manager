@@ -1,3 +1,4 @@
+// src/types/index.ts
 export type UserRole = 'admin' | 'user';
 
 export interface UserProfile {
@@ -9,22 +10,18 @@ export interface UserProfile {
 
 export interface StockItem {
   id?: string;
+  category: string;
+  type: string;
+  location: string;
+  itemName: string;
   
-  // 1. Hierarchy
-  category: string;      
-  type: string;        
-  itemName: string;      
-  
-  // 2. Inventory Data
   quantity: number;
-  location: string;      
+  unit: string; // NEW: ton, feet, count
+  minStock: number; // NEW: For low stock alert
   
-  purchasePrice: number; 
-  sellingPrice: number;  
-  gst: number
-
-  lastUpdated: any;     
+  purchasePrice: number;
+  sellingPrice: number;
+  gst: number;
+  
+  lastUpdated: any;
 }
-
-export const canViewFinancials = (role: UserRole) => role === 'admin';
-export const canDeleteItems = (role: UserRole) => role === 'admin';

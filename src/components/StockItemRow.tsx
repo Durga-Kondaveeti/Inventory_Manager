@@ -22,7 +22,7 @@ export default function StockItemRow({ item, onViewDetails }: StockItemRowProps)
           <h4 className="text-base font-bold text-stone-900 group-hover:text-orange-600 transition-colors">
             {item.itemName}
           </h4>
-          {item.quantity < 5 && (
+          {item.quantity < (item.minStock ?? 5) && (
              <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
           )}
         </div>
