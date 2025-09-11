@@ -257,7 +257,6 @@ export default function AddItem() {
                  {renderField("Location", "location", uniqueLocations)}
               </div>
             </div>
-              {renderField("Location", "location", uniqueLocations)}
             </div>
 
             <div className="rounded-2xl bg-orange-50/50 p-6 ring-1 ring-orange-100/50">
@@ -271,8 +270,8 @@ export default function AddItem() {
                   <div key={field.name}>
                     <label className="mb-2 block text-[10px] font-bold uppercase tracking-wider text-stone-400">{field.label}</label>
                     <div className="relative flex items-center">
-                      <span className="absolute left-3 font-bold text-stone-400">{field.prefix === '$' ? '$' : ''}</span>
-                      <input name={field.name} type="number" step="0.01" min="0" required className={`w-full rounded-xl bg-white py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 focus:ring-2 focus:ring-orange-500/20 ${field.prefix === '$' ? 'pl-7 pr-3' : 'px-4'}`} onChange={handleChange} />
+                      <span className="absolute left-3 font-bold text-stone-400">{field.prefix === 'Inr' ? 'Inr' : ''}</span>
+                      <input name={field.name} type="number" step="0.01" min="0" required className={`w-full rounded-xl bg-white py-3 font-bold text-stone-900 shadow-sm outline-none ring-1 ring-stone-100 focus:ring-2 focus:ring-orange-500/20 ${field.prefix === 'Inr' ? 'pl-7 pr-3' : 'px-4'}`} onChange={handleChange} />
                       <span className="absolute right-3 font-bold text-stone-400">{field.prefix === '%' ? '%' : ''}</span>
                     </div>
                   </div>

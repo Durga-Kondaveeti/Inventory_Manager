@@ -10,23 +10,22 @@ export const getPriceIncGST = (price: number, gstPercentage: number = 0): number
 };
 
 export const formatCurrency = (amount: number): string => {
-  return `$${amount.toFixed(2)}`;
+  return `Inr ${amount.toFixed(2)}`;
 };
 
-// NEW: 3-Level Deep Hierarchy
-export type GroupedInventory = Record<string, Record<string, Record<string, StockItem[]>>>;
+export type GroupedInventory = Record<string, Record<string, StockItem[]>>;
 
 export const groupInventory = (items: StockItem[]): GroupedInventory => {
   return items.reduce((acc, item) => {
-    const category = item.category || "Uncategorized";
+    if (!item.category || item.category.toLowerCase() === "uncategorized") return acc;
+
+    const category = item.category;
     const type = item.type || "General";
-    const location = item.location || "Unassigned Location";
     
     if (!acc[category]) acc[category] = {};
-    if (!acc[category][type]) acc[category][type] = {};
-    if (!acc[category][type][location]) acc[category][type][location] = [];
+    if (!acc[category][type]) acc[category][type] = [];
     
-    acc[category][type][location].push(item);
+    acc[category][type].push(item);
     return acc;
   }, {} as GroupedInventory);
 };

@@ -14,8 +14,8 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-stone-900 font-sans">
-      <nav className="sticky top-0 z-50 border-b border-stone-100 bg-white/80 px-6 py-4 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
+      <nav className="sticky top-0 z-50 border-b border-stone-100 bg-white/80 px-6 py-4 backdrop-blur-md ">
+        <div className="mx-auto flex max-w-7xl items-center justify-between ">
           
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-stone-900 text-white font-bold">
